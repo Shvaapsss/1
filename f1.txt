@@ -1,26 +1,75 @@
+#include <stdlib.h>
 #include <iostream>
 
-int main() {
-    int i = 69;
-    int number = 724;
-    i = 69 + 72;
+struct TwoInts
+{
+    int a;
+    int b;
+};
+`
+struct StructWithArray
+{
+    int arr[4];
+    int* someNumber;
+};
 
-    int arr[3] = {0, 0, 0};
-    int* iPointer = &i;
+int main()
+{
+    TwoInts i2 = { };
+    i2.a = 5;
+    //значение для a=5
+    i2.b = 7;
+    //значение для b=7
 
-    number = *iPointer;
-    *iPointer = 15;
+    std::cout << i2.a << std::endl;
+    std::cout << i2.b << std::endl;
 
-    iPointer = &arr[0];
-    iPointer += 2;
+    StructWithArray s = { };
+    s.arr[0] = 10;
+    //значение первого элемента массива s=10
 
-    arr[0] = 5;
-    *iPointer = 6;
+    StructWithArray s1 = { };
+    s1.arr[0] = 15;
+    //значение первого элемента массива s1=15
 
-    std::cout << "i: " << i << std::endl;
-    std::cout << "number: " << number << std::endl;
-    std::cout << "arr[0]: " << arr[0] << std::endl;
-    std::cout << "arr[2]: " << arr[2] << std::endl;
+    StructWithArray* sPointer = &s;
+    //sPointer указывается на s
+    sPointer->arr[0] = 20;
+    //первый элемент массива на который указывает sPointer приравнивается к 20(к s)
 
+    std::cout << s.arr[0] << std::endl;
+    s.arr[0] = 25;
+    //значение первого элемента массива s=25
+    std::cout << s.arr[0] << std::endl;
+    //вывод значения первого элемента из массива s
+    sPointer->arr[0] = 30;
+    //указатель на первый элемент массива s=30
+    std::cout << s.arr[0] << std::endl;
+    //вывод значения первого элемента из массива s
+
+    sPointer = &s1;
+    //sPointer указывается на s1
+    sPointer->arr[0] = 35;
+    //первый элемент массива на который указывает sPointer приравнивается к 35(к s1)
+    std::cout << s.arr[0] << std::endl;
+    //вывод первого элемента массива s
+    std::cout << s1.arr[0] << std::endl;
+//вывод первого элемента массива s
+    StructWithArray structArray[2] = { };
+
+    structArray[0].arr[3] = 77;
+    //записываем в structArray в четвёртый элемент значение 77
+    structArray[1].someNumber = &structArray[0].arr[3];
+    //записываем в structArray адрес третьего элемента structArray
+
+    sPointer = &s;
+    //поинтер перенапрявляет на s
+    int* pointer = &sPointer->arr[3];
+    s.arr[3] = 72;
+    //записываем в четвертый элемент массива s значениу 72
+    std::cout << *pointer;
+
+    StructWithArray memory;
+    memset(&memory, 0, sizeof(StructWithArray));
     return 0;
 }
